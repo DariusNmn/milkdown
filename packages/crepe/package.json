@@ -151,6 +151,7 @@
     "@codemirror/theme-one-dark": "^6.1.2",
     "@codemirror/view": "^6.16.0",
     "@milkdown/kit": "workspace:*",
+    "@milkdown/plugin-hide-images": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "clsx": "^2.0.0",
     "codemirror": "^6.0.1",

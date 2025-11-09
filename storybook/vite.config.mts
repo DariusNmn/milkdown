@@ -11,4 +11,7 @@ export default defineConfig({
       strict: false,
     },
   },
+  resolve: {
+    preserveSymlinks: true,
+  },
 })

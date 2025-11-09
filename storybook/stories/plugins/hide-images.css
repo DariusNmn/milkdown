@@ -1,0 +1,10 @@
+/* Styles for hide images plugin test */
+
+.milkdown-storybook {
+  padding: 1rem;
+}
+
+.milkdown-hidden-image {
+  display: none !important;
+}
+

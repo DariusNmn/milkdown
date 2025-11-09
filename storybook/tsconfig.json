@@ -17,6 +17,7 @@
   "references": [
     { "path": "../packages/crepe" },
     { "path": "../packages/kit" },
-    { "path": "../packages/plugins/theme-nord" }
+    { "path": "../packages/plugins/theme-nord" },
+    { "path": "../packages/plugins/plugin-hide-images" }
   ]
 }

@@ -353,6 +353,9 @@ importers:
       '@milkdown/kit':
         specifier: workspace:*
         version: link:../kit
+      '@milkdown/plugin-hide-images':
+        specifier: workspace:*
+        version: link:../plugins/plugin-hide-images
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -450,6 +453,9 @@ importers:
       '@milkdown/plugin-cursor':
         specifier: workspace:*
         version: link:../plugins/plugin-cursor
+      '@milkdown/plugin-hide-images':
+        specifier: workspace:*
+        version: link:../plugins/plugin-hide-images
       '@milkdown/plugin-history':
         specifier: workspace:*
         version: link:../plugins/plugin-history
@@ -620,6 +626,18 @@ importers:
       '@milkdown/preset-commonmark':
         specifier: workspace:*
         version: link:../preset-commonmark
+
+  packages/plugins/plugin-hide-images:
+    dependencies:
+      '@milkdown/ctx':
+        specifier: workspace:*
+        version: link:../../ctx
+      '@milkdown/prose':
+        specifier: workspace:*
+        version: link:../../prose
+      '@milkdown/utils':
+        specifier: workspace:*
+        version: link:../../utils
 
   packages/plugins/plugin-highlight:
     dependencies:
@@ -957,6 +975,9 @@ importers:
       '@milkdown/kit':
         specifier: workspace:*
         version: link:../packages/kit
+      '@milkdown/plugin-hide-images':
+        specifier: workspace:*
+        version: link:../packages/plugins/plugin-hide-images
       '@milkdown/theme-nord':
         specifier: workspace:*
         version: link:../packages/plugins/theme-nord

@@ -2,7 +2,8 @@ import type { Ctx } from '@milkdown/kit/ctx'
 
 import { imageBlockSchema } from '@milkdown/kit/component/image-block'
 import { toggleLinkCommand } from '@milkdown/kit/component/link-tooltip'
-import { commandsCtx } from '@milkdown/kit/core'
+import { commandsCtx, editorViewCtx } from '@milkdown/kit/core'
+import { PluginKey } from '@milkdown/kit/prose/state'
 import {
   addBlockTypeCommand,
   blockquoteSchema,
@@ -25,6 +26,9 @@ import type { ToolbarFeatureConfig } from '.'
 
 import { CrepeFeature } from '..'
 import { useCrepeFeatures } from '../../core/slice'
+// Import hide-images plugin (will be available since we added it to builder)
+// Use direct import from plugin package as fallback
+import { hideImagesState } from '@milkdown/plugin-hide-images'
 import {
   bulletListIcon,
   codeIcon,
@@ -42,6 +46,7 @@ import {
   quoteIcon,
   textIcon,
   todoListIcon,
+  visibilityOffIcon,
 } from '../../icons'
 import { GroupBuilder } from '../../utils/group-builder'
 
@@ -209,6 +214,40 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
       },
     })
   }
+
+  // 10.5. Hide Images Toggle
+  // Always add the button - it will gracefully handle if plugin isn't available
+  // This works for both inline images and image blocks
+  mainGroup.addItem('hide-images', {
+    icon: visibilityOffIcon,
+    active: (ctx) => {
+      try {
+        return ctx.get(hideImagesState.key) ?? false
+      } catch {
+        return false
+      }
+    },
+    onRun: (ctx) => {
+      try {
+        // Get current state and toggle it
+        const currentState = ctx.get(hideImagesState.key)
+        const newState = !currentState
+        
+        // Update the context state
+        ctx.update(hideImagesState.key, () => newState)
+        
+        // Get view and plugin key
+        const view = ctx.get(editorViewCtx)
+        const pluginKey = new PluginKey('MILKDOWN_HIDE_IMAGES')
+        
+        // Dispatch transaction with meta to trigger decoration update
+        view.dispatch(view.state.tr.setMeta(pluginKey, { isHidden: newState }))
+      } catch (e) {
+        // Plugin not available or not initialized yet
+        console.warn('Hide images plugin not available:', e)
+      }
+    },
+  })
   
   // 11. Quote
   mainGroup.addItem('quote', {
